@@ -1,0 +1,165 @@
+@startuml
+' Dependencia con clase academia
+Academia "1" *-- "*" Estudiante
+Academia "1" *-- "*" Profesor
+Academia "1" *-- "*" Curso
+Academia "1" *-- "*" Matricula
+Academia "1"*--"*" ServicioAdicional
+
+'relaciones de matricula con otras clase
+
+Matricula "1" *-- "*" Pago
+'Una matrícula no existe sin curso, pero un curso sí puede existir sin matrícula
+'(ejemplo: curso creado pero sin estudiantes inscritos).
+
+Matricula o-- Curso
+'Logica Una matrícula puede tener muchos servicios adicionales
+'(ejemplo: simulacro + tutoría + material impreso).
+'Matricula o-- ServicioAdiEsto simplifica el modelo
+'pero se pierde la idea de que cada curso puede tener servicios específicos
+
+Matricula o-- ServicioAdicional
+'solicita
+Estudiante o-- Matricula
+
+'segun el contexto
+'por cada asignacion debe permitir identificar
+'relacion entre estudiante mediante curso y este curso
+'especifico adquirido con el profesor responsble
+'para este caso curso personalizado
+Profesor "1" o-- "many" CursoPersonalizado : enseña
+
+
+'enum
+
+'enum entre curso y su estado de curso
+Curso -right-> EstadoCurso
+
+'enum entre estudiantes y sus posibles categorias
+Estudiante --> NivelReferencia
+Estudiante --> TipoEstudiante
+'enum para servicioAdicional
+ServicioAdicional --> Disponibilidad
+
+
+'Herencias
+'herencia de curso
+Curso <|-- CursoIngles
+Curso <|-- CursoFrances
+Curso <|-- CursoPortugues
+Curso <|-- CursoPersonalizado
+
+class Academia {
+    - nombreComercial : String
+    - NIT : String
+    - direccion : String
+    - telefono : String
+    - correoElectronico : String
+    - paginaWeb : String
+      + Academia()
+}
+
+class Estudiante {
+    - nombreCompleto : String
+    - documentoIdentidad : String
+    - telefono : String
+    - correoElectronico : String
+    - edad : int
+    - fechaRegistro : Date
+    + Estudiante()
+}
+abstract class Curso {
+    - codigo : String
+    - nombre : String
+    - idioma : String
+    - descripcion : String
+    - duracionMeses : int
+    - valorMensual : double
+    - estado : EstadoCurso
+    + Curso()
+}
+
+class Profesor {
+    - identificacion : String
+    - nombre : String
+    - idioma : String
+    - telefono : String
+    - tarifaSesion : double
+    + Profesor()
+}
+
+class Matricula {
+    - fecha : Date
+    - valorTotal : double
+    + Matricula()
+}
+class Pago {
+    - idPago : String
+    - monto : double
+    - fechaPago : Date
+    + Pago()
+}
+class ServicioAdicional {
+    - codigo : String
+    - nombre : String
+    - descripcion : String
+    - precio : double
+    - disponibilidad : Disponibilidad
+
+    + ServicioAdicional()
+}
+
+
+'enums para curso tabla
+enum EstadoCurso {
+    ACTIVO,
+    SUSPENDIDO,
+    FINALIZADO
+}
+'enum para estudiante tabla
+enum NivelReferencia {
+    A1,
+    A2,
+    B1,
+    B2,
+    C1,
+    C2
+}
+enum TipoEstudiante {
+    NIÑO,
+    ADOLESCENTE,
+    ADULTO
+}
+'enum para servicio adicional tabla
+enum Disponibilidad {
+    DISPONIBLE,
+    NO_DISPONIBLE
+}
+
+'Herencia de curso
+class CursoIngles {
+    - nivel : String
+    - horario : String
+    + CursoIngles()
+}
+
+class CursoFrances {
+    - nivel : String
+    - horario : String
+    + CursoFrances()
+}
+
+class CursoPortugues {
+    - nivel : String
+    - horario : String
+    + CursoPortugues()
+}
+
+class CursoPersonalizado {
+    - cantidadSesiones : int
+    - nivelReferencia : String
+    - objetivosEstudiante : String
+    + CursoPersonalizado()
+}
+
+@enduml
