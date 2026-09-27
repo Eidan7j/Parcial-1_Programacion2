@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.poo.parcial1programacion2.controllers.InicioController"
+            style="-fx-background-color: #f4f6f9;">
+
+    <top>
+        <VBox spacing="6" style="-fx-background-color: #1e293b; -fx-padding: 22 30 22 30;">
+            <Label text="ACADEMIA GLOBAL LANGUAGES UQ"
+                   style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <Label text="NIT: 900.456.789-1 | Av. Bolívar # 12N-34, Armenia | Tel: 3157894561 | www.globallanguages.edu.co"
+                   style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="24" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="25" right="35" bottom="25" left="35"/>
+            </padding>
+
+            <!-- Tarjetas de resumen -->
+            <HBox spacing="16" alignment="CENTER">
+                <VBox alignment="CENTER" spacing="4" prefWidth="170"
+                      style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #e2e8f0; -fx-border-radius: 10;">
+                    <Label text="Estudiantes" style="-fx-text-fill: #64748b; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblTotalEstudiantes" text="0" style="-fx-text-fill: #2563eb; -fx-font-size: 26px; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="4" prefWidth="170"
+                      style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #e2e8f0; -fx-border-radius: 10;">
+                    <Label text="Profesores" style="-fx-text-fill: #64748b; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblTotalProfesores" text="0" style="-fx-text-fill: #059669; -fx-font-size: 26px; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="4" prefWidth="170"
+                      style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #e2e8f0; -fx-border-radius: 10;">
+                    <Label text="Cursos" style="-fx-text-fill: #64748b; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblTotalCursos" text="0" style="-fx-text-fill: #7c3aed; -fx-font-size: 26px; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="4" prefWidth="170"
+                      style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #e2e8f0; -fx-border-radius: 10;">
+                    <Label text="Servicios Adicionales" style="-fx-text-fill: #64748b; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblTotalServicios" text="0" style="-fx-text-fill: #d97706; -fx-font-size: 26px; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="4" prefWidth="170"
+                      style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #e2e8f0; -fx-border-radius: 10;">
+                    <Label text="Matrículas" style="-fx-text-fill: #64748b; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblTotalMatriculas" text="0" style="-fx-text-fill: #dc2626; -fx-font-size: 26px; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+
+            <Separator/>
+
+            <Label text="Seleccione el módulo al que desea ingresar (Vistas Separadas)"
+                   style="-fx-text-fill: #1e293b; -fx-font-size: 17px; -fx-font-weight: bold;"/>
+
+            <!-- Grid de navegación a cada vista independiente -->
+            <GridPane hgap="20" vgap="20" alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints prefWidth="280"/>
+                    <ColumnConstraints prefWidth="280"/>
+                    <ColumnConstraints prefWidth="280"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints prefHeight="110"/>
+                    <RowConstraints prefHeight="110"/>
+                    <RowConstraints prefHeight="85"/>
+                </rowConstraints>
+
+                <Button onAction="#irAEstudiantes" maxWidth="Infinity" maxHeight="Infinity"
+                        GridPane.columnIndex="0" GridPane.rowIndex="0"
+                        text="1. Vista de Estudiantes&#10;(Crear Builder / Prototype / CRUD)"
+                        style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-text-alignment: center;"/>
+
+                <Button onAction="#irAProfesores" maxWidth="Infinity" maxHeight="Infinity"
+                        GridPane.columnIndex="1" GridPane.rowIndex="0"
+                        text="2. Vista de Profesores&#10;(Crear / Actualizar / Eliminar)"
+                        style="-fx-background-color: #059669; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-text-alignment: center;"/>
+
+                <Button onAction="#irACursos" maxWidth="Infinity" maxHeight="Infinity"
+                        GridPane.columnIndex="2" GridPane.rowIndex="0"
+                        text="3. Vista de Cursos&#10;(Inglés, Francés, Portugués, Personalizado)"
+                        style="-fx-background-color: #7c3aed; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-text-alignment: center;"/>
+
+                <Button onAction="#irAServicios" maxWidth="Infinity" maxHeight="Infinity"
+                        GridPane.columnIndex="0" GridPane.rowIndex="1"
+                        text="4. Vista de Servicios Adicionales&#10;(Crear / Buscar / Eliminar)"
+                        style="-fx-background-color: #d97706; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-text-alignment: center;"/>
+
+                <Button onAction="#irAMatriculas" maxWidth="Infinity" maxHeight="Infinity"
+                        GridPane.columnIndex="1" GridPane.rowIndex="1"
+                        text="5. Vista de Matrículas&#10;(Inscribir Curso y Servicios Adicionales)"
+                        style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-text-alignment: center;"/>
+
+                <Button onAction="#irAPagos" maxWidth="Infinity" maxHeight="Infinity"
+                        GridPane.columnIndex="2" GridPane.rowIndex="1"
+                        text="6. Vista de Pagos&#10;(Registrar y Actualizar Pagos)"
+                        style="-fx-background-color: #0891b2; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-text-alignment: center;"/>
+
+                <Button onAction="#irAReportes" maxWidth="Infinity" maxHeight="Infinity"
+                        GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="3"
+                        text="7. Vista de Reportes Financieros (Generar Reporte de Ingresos por Fechas y Total Academia)"
+                        style="-fx-background-color: #334155; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-text-alignment: center;"/>
+            </GridPane>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #e2e8f0; -fx-padding: 12;">
+            <Label fx:id="lblResumenIngresos" text="El total de ingresos generados por la academia es: 0.0"
+                   style="-fx-text-fill: #1e293b; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

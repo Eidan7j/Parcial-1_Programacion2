@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.poo.parcial1programacion2.controllers.ServicioAdicionalController"
+            style="-fx-background-color: #f8fafc;">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #92400e; -fx-padding: 15 25 15 25;">
+            <Button text="⬅ Volver al Menú" onAction="#volverAlInicio"
+                    style="-fx-background-color: #ffffff; -fx-text-fill: #92400e; -fx-font-weight: bold; -fx-cursor: hand;"/>
+            <Label text="MÓDULO DE GESTIÓN DE SERVICIOS ADICIONALES"
+                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="12" prefWidth="340" style="-fx-background-color: white; -fx-padding: 18; -fx-border-color: #e2e8f0;">
+            <Label text="Crear / Buscar Servicio Adicional" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+
+            <GridPane hgap="8" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints prefWidth="110"/>
+                    <ColumnConstraints prefWidth="190"/>
+                </columnConstraints>
+
+                <Label text="Código:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtCodigo" promptText="Ej: S001" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNombre" promptText="Nombre del servicio" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Descripción:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtDescripcion" promptText="Descripción del servicio" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Duración (hrs):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtDuracion" promptText="Ej: 2.0" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Precio Unitario:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtPrecio" promptText="Ej: 50000" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Disponibilidad:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbDisponibilidad" maxWidth="Infinity" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <HBox spacing="8">
+                <Button text="Registrar" onAction="#registrarServicio" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: #d97706; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                <Button text="Buscar" onAction="#buscarServicio" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: #0284c7; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+            </HBox>
+
+            <HBox spacing="8">
+                <Button text="Eliminar" onAction="#eliminarServicio" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                <Button text="Limpiar" onAction="#limpiarCampos" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: #64748b; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="12" style="-fx-padding: 18;">
+            <Label text="Servicios Adicionales Disponibles" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+            <TableView fx:id="tablaServicios" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colCodigo" text="Código" prefWidth="80"/>
+                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="170"/>
+                    <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="200"/>
+                    <TableColumn fx:id="colDuracion" text="Duración (h)" prefWidth="90"/>
+                    <TableColumn fx:id="colPrecio" text="Precio Unitario" prefWidth="110"/>
+                    <TableColumn fx:id="colDisponibilidad" text="Disponibilidad" prefWidth="120"/>
+                </columns>
+            </TableView>
+            <Label fx:id="lblMensaje" text="Seleccione o registre un servicio adicional." style="-fx-font-size: 13px;"/>
+        </VBox>
+    </center>
+
+</BorderPane>
