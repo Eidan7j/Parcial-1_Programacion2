@@ -1,82 +1,71 @@
 @startuml
-' Dependencia con clase academia
-Academia "1" *-- "*" Estudiante
-Academia "1" *-- "*" Profesor
-Academia "1" *-- "*" Curso
-Academia "1" *-- "*" Matricula
-Academia "1"*--"*" ServicioAdicional
+title Diagrama de Clases - Academia de Idiomas LenguajeCafetero
 
-'relaciones de matricula con otras clase
+' ==========================================
+' ENUMS
+' ==========================================
+enum EstadoCurso {
+    ACTIVO
+    SUSPENDIDO
+    FINALIZADO
+}
 
-Matricula "1" *-- "*" Pago
-'Una matrícula no existe sin curso, pero un curso sí puede existir sin matrícula
-'(ejemplo: curso creado pero sin estudiantes inscritos).
+enum TipoCurso {
+    REGULAR
+    INTENSIVO
+    PERSONALIZADO
+}
 
-Matricula o-- Curso
-'Logica Una matrícula puede tener muchos servicios adicionales
-'(ejemplo: simulacro + tutoría + material impreso).
-'Matricula o-- ServicioAdiEsto simplifica el modelo
-'pero se pierde la idea de que cada curso puede tener servicios específicos
+enum Nivel {
+    A1
+    A2
+    B1
+    B2
+    C1
+    C2
+}
 
-Matricula o-- ServicioAdicional
-'solicita
-Estudiante o-- Matricula
+enum Disponibilidad {
+    DISPONIBLE
+    NO_DISPONIBLE
+}
 
-'segun el contexto
-'por cada asignacion debe permitir identificar
-'relacion entre estudiante mediante curso y este curso
-'especifico adquirido con el profesor responsble
-'para este caso curso personalizado
-Profesor "1" o-- "many" CursoPersonalizado : enseña
-
-
-'enum
-
-'enum entre curso y su estado de curso
-Curso -right-> EstadoCurso
-
-'enum entre estudiantes y sus posibles categorias
-Estudiante --> NivelReferencia
-Estudiante --> TipoEstudiante
-'enum para servicioAdicional
-ServicioAdicional --> Disponibilidad
-
-
-'Herencias
-'herencia de curso
-Curso <|-- CursoIngles
-Curso <|-- CursoFrances
-Curso <|-- CursoPortugues
-Curso <|-- CursoPersonalizado
-
-class Academia {
+' ==========================================
+' CLASES DEL MODELO
+' ==========================================
+class LenguajeCafetero {
     - nombreComercial : String
-    - NIT : String
+    - nit : String
     - direccion : String
     - telefono : String
     - correoElectronico : String
     - paginaWeb : String
-      + Academia()
+    + LenguajeCafetero(nombreComercial, nit, direccion, telefono, correo, web)
+    + registrarEstudiante(estudiante : Estudiante) : boolean
+    + buscarEstudiante(documentoIdentidad : String) : Estudiante
+    + actualizarEstudiante(estudiante : Estudiante) : boolean
+    + eliminarEstudiante(documento : String) : boolean
+    + registrarProfesor(profesor : Profesor) : boolean
+    + buscarProfesorPorIdentificacion(id : String) : Optional<Profesor>
+    + registrarCurso(curso : Curso) : boolean
+    + registrarServicioAdicional(servicio : ServicioAdicional) : boolean
+    + registrarMatricula(matricula : Matricula) : boolean
+    + calcularIngresosPeriodo(fechaInicial : LocalDate, fechaFinal : LocalDate) : double
+    + generarReporteIngresos(fechaInicial : LocalDate, fechaFinal : LocalDate) : Reporte
+    + cargarDatosPrueba() : void
 }
 
 class Estudiante {
-    - nombreCompleto : String
     - documentoIdentidad : String
+    - nombreCompleto : String
     - telefono : String
     - correoElectronico : String
     - edad : int
-    - fechaRegistro : Date
-    + Estudiante()
-}
-abstract class Curso {
-    - codigo : String
-    - nombre : String
-    - idioma : String
-    - descripcion : String
-    - duracionMeses : int
-    - valorMensual : double
-    - estado : EstadoCurso
-    + Curso()
+    - fechaRegistro : LocalDate
+    + Estudiante(documento, nombre, telefono, correo, edad, fechaRegistro)
+    + getDocumentoIdentidad() : String
+    + getNombreCompleto() : String
+    + getEdad() : int
 }
 
 class Profesor {
@@ -85,81 +74,112 @@ class Profesor {
     - idioma : String
     - telefono : String
     - tarifaSesion : double
-    + Profesor()
+    + Profesor(identificacion, nombre, idioma, telefono, tarifaSesion)
+    + getTarifaSesion() : double
 }
 
-class Matricula {
-    - fecha : Date
-    - valorTotal : double
-    + Matricula()
+abstract class Curso {
+    - codigo : String
+    - nombre : String
+    - idioma : String
+    - descripcion : String
+    - duracionMeses : int
+    - valorMensual : double
+    - estadoCurso : EstadoCurso
+    - tipoCurso : TipoCurso
+    - beneficios : List<String>
+    + Curso(codigo, nombre, idioma, descripcion, duracion, valorMensual, estado, tipo)
+    + {abstract} calcularCostoBase(profesor : Profesor) : double
+    + agregarBeneficio(beneficio : String) : void
+    + getBeneficiosFormateados() : String
 }
-class Pago {
-    - idPago : String
-    - monto : double
-    - fechaPago : Date
-    + Pago()
+
+class CursoRegular {
+    + CursoRegular(codigo, nombre, idioma, descripcion, duracion, valorMensual, estado)
+    + calcularCostoBase(profesor : Profesor) : double
 }
+
+class CursoIntensivo {
+    + CursoIntensivo(codigo, nombre, idioma, descripcion, duracion, valorMensual, estado)
+    + calcularCostoBase(profesor : Profesor) : double
+}
+
+class CursoPersonalizado {
+    - cantidadSesiones : int
+    - nivelReferencia : Nivel
+    - objetivosEstudiante : String
+    + CursoPersonalizado(codigo, nombre, idioma, descripcion, duracion, valorMensual, estado, sesiones, nivel, objetivos)
+    + calcularCostoBase(profesor : Profesor) : double
+}
+
 class ServicioAdicional {
     - codigo : String
     - nombre : String
     - descripcion : String
     - precio : double
     - disponibilidad : Disponibilidad
-
-    + ServicioAdicional()
+    + ServicioAdicional(codigo, nombre, descripcion, precio, disponibilidad)
+    + estaDisponible() : boolean
 }
 
-
-'enums para curso tabla
-enum EstadoCurso {
-    ACTIVO,
-    SUSPENDIDO,
-    FINALIZADO
-}
-'enum para estudiante tabla
-enum NivelReferencia {
-    A1,
-    A2,
-    B1,
-    B2,
-    C1,
-    C2
-}
-enum TipoEstudiante {
-    NIÑO,
-    ADOLESCENTE,
-    ADULTO
-}
-'enum para servicio adicional tabla
-enum Disponibilidad {
-    DISPONIBLE,
-    NO_DISPONIBLE
+class Matricula {
+    - codigo : String
+    - fecha : LocalDate
+    - descuentoPorcentaje : double
+    + Matricula(codigo, fecha, estudiante, curso, profesor, descuento)
+    + calcularCostoCurso() : double
+    + calcularCostoServicios() : double
+    + calcularSubtotal() : double
+    + calcularMontoDescuento() : double
+    + calcularValorTotal() : double
+    + agregarServicioAdicional(servicio : ServicioAdicional) : void
+    + agregarPago(pago : Pago) : void
+    + getTotalPagado() : double
+    + getSaldoPendiente() : double
 }
 
-'Herencia de curso
-class CursoIngles {
-    - nivel : String
-    - horario : String
-    + CursoIngles()
+class Pago {
+    - idPago : String
+    - monto : double
+    - fechaPago : LocalDate
+    - metodoPago : String
+    + Pago(idPago, monto, fechaPago, metodoPago)
 }
 
-class CursoFrances {
-    - nivel : String
-    - horario : String
-    + CursoFrances()
+class Reporte {
+    - fechaInicial : LocalDate
+    - fechaFinal : LocalDate
+    - totalIngresos : double
+    - cantidadMatriculas : int
+    + Reporte(fechaInicial, fechaFinal, matriculas)
+    + getTotalIngresos() : double
+    + getCantidadMatriculas() : int
 }
 
-class CursoPortugues {
-    - nivel : String
-    - horario : String
-    + CursoPortugues()
-}
+' ==========================================
+' RELACIONES
+' ==========================================
+LenguajeCafetero "1" *-- "*" Estudiante : administra
+LenguajeCafetero "1" *-- "*" Profesor : administra
+LenguajeCafetero "1" *-- "*" Curso : administra
+LenguajeCafetero "1" *-- "*" ServicioAdicional : administra
+LenguajeCafetero "1" *-- "*" Matricula : administra
 
-class CursoPersonalizado {
-    - cantidadSesiones : int
-    - nivelReferencia : String
-    - objetivosEstudiante : String
-    + CursoPersonalizado()
-}
+Curso <|-- CursoRegular
+Curso <|-- CursoIntensivo
+Curso <|-- CursoPersonalizado
+
+Curso --> EstadoCurso
+Curso --> TipoCurso
+CursoPersonalizado --> Nivel
+ServicioAdicional --> Disponibilidad
+
+Matricula --> "1" Estudiante : pertenece a
+Matricula --> "1" Curso : inscribe
+Matricula --> "0..1" Profesor : asigna (responsable)
+Matricula o-- "*" ServicioAdicional : incluye
+Matricula "1" *-- "*" Pago : registra
+
+Reporte o-- "*" Matricula : resume
 
 @enduml

@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="760.0" prefWidth="1180.0" spacing="10.0"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uniquindio.poo.parcial1programacion2.controller.MainViewController">
+
+    <padding>
+        <Insets bottom="10.0" left="12.0" right="12.0" top="10.0"/>
+    </padding>
+
+    <!-- ENCABEZADO CORPORATIVO (PREDETERMINADO JAVAFX) -->
+    <VBox spacing="4.0">
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label text="☕ Academia de Idiomas LenguajeCafetero">
+                <font>
+                    <Font name="System Bold" size="20.0"/>
+                </font>
+            </Label>
+            <Separator orientation="VERTICAL"/>
+            <Label text="Inglés • Francés • Portugués"/>
+        </HBox>
+        <Label fx:id="lblAcademiaInfo" text="NIT 901.847.231-5 | Carrera 14 # 21-35, Armenia, Quindío | Tel: (606) 745-9820"/>
+        <Separator/>
+    </VBox>
+
+    <!-- NAVEGACIÓN POR PESTAÑAS -->
+    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+
+        <!-- ========================================================= -->
+        <!-- PESTAÑA 1: DASHBOARD / INICIO -->
+        <!-- ========================================================= -->
+        <Tab text="Inicio &amp; Dashboard">
+            <VBox spacing="14.0">
+                <padding>
+                    <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+                </padding>
+
+                <!-- TARJETAS DE RESUMEN (KPIS) -->
+                <HBox spacing="14.0">
+                    <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                        <Label text="Estudiantes Registrados">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                        </Label>
+                        <Label fx:id="lblDashEstudiantes" text="0">
+                            <font><Font name="System Bold" size="22.0"/></font>
+                        </Label>
+                        <Label text="En formación activa"/>
+                    </VBox>
+                    <Separator orientation="VERTICAL"/>
+                    <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                        <Label text="Cursos Activos">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                        </Label>
+                        <Label fx:id="lblDashCursos" text="0">
+                            <font><Font name="System Bold" size="22.0"/></font>
+                        </Label>
+                        <Label text="Regulares, Intensivos, Personalizados"/>
+                    </VBox>
+                    <Separator orientation="VERTICAL"/>
+                    <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                        <Label text="Profesores Vinculados">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                        </Label>
+                        <Label fx:id="lblDashProfesores" text="0">
+                            <font><Font name="System Bold" size="22.0"/></font>
+                        </Label>
+                        <Label text="Especialistas por idioma"/>
+                    </VBox>
+                    <Separator orientation="VERTICAL"/>
+                    <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                        <Label text="Matrículas Registradas">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                        </Label>
+                        <Label fx:id="lblDashMatriculas" text="0">
+                            <font><Font name="System Bold" size="22.0"/></font>
+                        </Label>
+                        <Label text="Historial general"/>
+                    </VBox>
+                    <Separator orientation="VERTICAL"/>
+                    <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                        <Label text="Total Recaudado">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                        </Label>
+                        <Label fx:id="lblDashTotalIngresos" text="\$0">
+                            <font><Font name="System Bold" size="22.0"/></font>
+                        </Label>
+                        <Label text="Por pagos recibidos"/>
+                    </VBox>
+                </HBox>
+
+                <Separator/>
+
+                <!-- TABLA DE ÚLTIMAS MATRÍCULAS -->
+                <VBox spacing="8.0" VBox.vgrow="ALWAYS">
+                    <Label text="Últimas Matrículas Registradas en la Academia">
+                        <font><Font name="System Bold" size="14.0"/></font>
+                    </Label>
+                    <TableView fx:id="tblDashUltimasMatriculas" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colDashCodigo" prefWidth="120.0" text="Código"/>
+                            <TableColumn fx:id="colDashFecha" prefWidth="110.0" text="Fecha"/>
+                            <TableColumn fx:id="colDashEstudiante" prefWidth="250.0" text="Estudiante"/>
+                            <TableColumn fx:id="colDashCurso" prefWidth="240.0" text="Curso"/>
+                            <TableColumn fx:id="colDashTotal" prefWidth="150.0" text="Valor Total"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </Tab>
+
+        <!-- ========================================================= -->
+        <!-- PESTAÑA 2: ESTUDIANTES -->
+        <!-- ========================================================= -->
+        <Tab text="Estudiantes">
+            <HBox spacing="14.0">
+                <padding>
+                    <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+                </padding>
+
+                <!-- FORMULARIO ESTUDIANTE -->
+                <VBox spacing="10.0" prefWidth="380.0" minWidth="330.0">
+                    <Label text="Gestión de Estudiantes">
+                        <font><Font name="System Bold" size="14.0"/></font>
+                    </Label>
+                    <Label text="Nombre completo, documento de identidad, teléfono, correo, edad y fecha de registro." wrapText="true"/>
+
+                    <VBox spacing="4.0">
+                        <Label text="Documento de Identidad *"/>
+                        <TextField fx:id="txtEstDocumento" promptText="Ej: 1094901001"/>
+                    </VBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Nombre Completo *"/>
+                        <TextField fx:id="txtEstNombre" promptText="Nombres y Apellidos"/>
+                    </VBox>
+
+                    <HBox spacing="10.0">
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <Label text="Teléfono"/>
+                            <TextField fx:id="txtEstTelefono" promptText="Ej: 3112345678"/>
+                        </VBox>
+                        <VBox spacing="4.0" prefWidth="110.0">
+                            <Label text="Edad"/>
+                            <Spinner fx:id="spnEstEdad" editable="true"/>
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Correo Electrónico"/>
+                        <TextField fx:id="txtEstCorreo" promptText="correo@ejemplo.com"/>
+                    </VBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Fecha de Registro"/>
+                        <DatePicker fx:id="dpEstFechaRegistro" maxWidth="Infinity"/>
+                    </VBox>
+
+                    <HBox spacing="8.0" alignment="CENTER">
+                        <padding>
+                            <Insets top="8.0"/>
+                        </padding>
+                        <Button text="Registrar" onAction="#registrarEstudiante" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Actualizar" onAction="#actualizarEstudiante" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Limpiar" onAction="#limpiarFormEstudiante"/>
+                    </HBox>
+                </VBox>
+
+                <Separator orientation="VERTICAL"/>
+
+                <!-- TABLA ESTUDIANTES -->
+                <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <Label text="Estudiantes Registrados" HBox.hgrow="ALWAYS">
+                            <font><Font name="System Bold" size="14.0"/></font>
+                        </Label>
+                        <TextField fx:id="txtEstBuscar" promptText="Buscar por nombre o documento..." onKeyReleased="#buscarEstudianteFiltro" prefWidth="250.0"/>
+                        <Button text="Eliminar Seleccionado" onAction="#eliminarEstudiante"/>
+                    </HBox>
+
+                    <TableView fx:id="tblEstudiantes" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colEstDocumento" prefWidth="120.0" text="Documento"/>
+                            <TableColumn fx:id="colEstNombre" prefWidth="200.0" text="Nombre Completo"/>
+                            <TableColumn fx:id="colEstTelefono" prefWidth="110.0" text="Teléfono"/>
+                            <TableColumn fx:id="colEstCorreo" prefWidth="180.0" text="Correo Electrónico"/>
+                            <TableColumn fx:id="colEstEdad" prefWidth="60.0" text="Edad"/>
+                            <TableColumn fx:id="colEstFecha" prefWidth="110.0" text="Fecha Registro"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                </VBox>
+            </HBox>
+        </Tab>
+
+        <!-- ========================================================= -->
+        <!-- PESTAÑA 3: PROFESORES -->
+        <!-- ========================================================= -->
+        <Tab text="Profesores">
+            <HBox spacing="14.0">
+                <padding>
+                    <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+                </padding>
+
+                <!-- FORMULARIO PROFESOR -->
+                <VBox spacing="10.0" prefWidth="380.0" minWidth="330.0">
+                    <Label text="Gestión de Profesores">
+                        <font><Font name="System Bold" size="14.0"/></font>
+                    </Label>
+                    <Label text="Identificación, nombre, idioma que enseña, teléfono y tarifa por sesión." wrapText="true"/>
+
+                    <VBox spacing="4.0">
+                        <Label text="Identificación *"/>
+                        <TextField fx:id="txtProfId" promptText="Ej: P-105 o Cédula"/>
+                    </VBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Nombre Completo *"/>
+                        <TextField fx:id="txtProfNombre" promptText="Nombre del docente"/>
+                    </VBox>
+
+                    <HBox spacing="10.0">
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <Label text="Idioma que Enseña *"/>
+                            <ComboBox fx:id="cmbProfIdioma" maxWidth="Infinity" editable="true"/>
+                        </VBox>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <Label text="Teléfono"/>
+                            <TextField fx:id="txtProfTelefono" promptText="3001234567"/>
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Tarifa por Sesión ($) *"/>
+                        <TextField fx:id="txtProfTarifa" promptText="Ej: 45000"/>
+                    </VBox>
+
+                    <HBox spacing="8.0" alignment="CENTER">
+                        <padding>
+                            <Insets top="8.0"/>
+                        </padding>
+                        <Button text="Registrar" onAction="#registrarProfesor" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Actualizar" onAction="#actualizarProfesor" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Limpiar" onAction="#limpiarFormProfesor"/>
+                    </HBox>
+                </VBox>
+
+                <Separator orientation="VERTICAL"/>
+
+                <!-- TABLA PROFESORES -->
+                <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <Label text="Planta Docente" HBox.hgrow="ALWAYS">
+                            <font><Font name="System Bold" size="14.0"/></font>
+                        </Label>
+                        <Button text="Eliminar Profesor" onAction="#eliminarProfesor"/>
+                    </HBox>
+
+                    <TableView fx:id="tblProfesores" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colProfId" prefWidth="110.0" text="Identificación"/>
+                            <TableColumn fx:id="colProfNombre" prefWidth="220.0" text="Nombre"/>
+                            <TableColumn fx:id="colProfIdioma" prefWidth="130.0" text="Idioma"/>
+                            <TableColumn fx:id="colProfTelefono" prefWidth="120.0" text="Teléfono"/>
+                            <TableColumn fx:id="colProfTarifa" prefWidth="140.0" text="Tarifa / Sesión"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                </VBox>
+            </HBox>
+        </Tab>
+
+        <!-- ========================================================= -->
+        <!-- PESTAÑA 4: CURSOS -->
+        <!-- ========================================================= -->
+        <Tab text="Cursos">
+            <HBox spacing="14.0">
+                <padding>
+                    <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+                </padding>
+
+                <!-- FORMULARIO CURSO -->
+                <ScrollPane fitToWidth="true" prefWidth="420.0" minWidth="350.0">
+                    <VBox spacing="10.0">
+                        <Label text="Gestión de Cursos">
+                            <font><Font name="System Bold" size="14.0"/></font>
+                        </Label>
+                        <Label text="Código, nombre, idioma, descripción, duración, valor mensual, estado y tipo de curso." wrapText="true"/>
+
+                        <HBox spacing="10.0">
+                            <VBox spacing="4.0" prefWidth="140.0">
+                                <Label text="Código *"/>
+                                <TextField fx:id="txtCursoCodigo" promptText="CUR-001"/>
+                            </VBox>
+                            <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                <Label text="Tipo de Curso *"/>
+                                <ComboBox fx:id="cmbCursoTipo" maxWidth="Infinity"/>
+                            </VBox>
+                        </HBox>
+
+                        <VBox spacing="4.0">
+                            <Label text="Nombre del Curso *"/>
+                            <TextField fx:id="txtCursoNombre" promptText="Ej: Francés B1 Intensivo"/>
+                        </VBox>
+
+                        <HBox spacing="10.0">
+                            <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                <Label text="Idioma *"/>
+                                <ComboBox fx:id="cmbCursoIdioma" maxWidth="Infinity" editable="true"/>
+                            </VBox>
+                            <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                <Label text="Estado *"/>
+                                <ComboBox fx:id="cmbCursoEstado" maxWidth="Infinity"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox spacing="10.0">
+                            <VBox spacing="4.0" prefWidth="120.0">
+                                <Label text="Duración (meses)"/>
+                                <Spinner fx:id="spnCursoDuracion" editable="true"/>
+                            </VBox>
+                            <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                <Label text="Valor Mensual ($) *"/>
+                                <TextField fx:id="txtCursoValorMensual" promptText="Ej: 250000"/>
+                            </VBox>
+                        </HBox>
+
+                        <VBox spacing="4.0">
+                            <Label text="Descripción"/>
+                            <TextField fx:id="txtCursoDescripcion" promptText="Objetivo y enfoque del curso"/>
+                        </VBox>
+
+                        <!-- CAMPOS ADICIONALES PARA CURSOS PERSONALIZADOS -->
+                        <VBox fx:id="boxCursoPersonalizado" spacing="8.0">
+                            <Label text="Información de Curso Personalizado:">
+                                <font><Font name="System Bold" size="12.0"/></font>
+                            </Label>
+                            <HBox spacing="10.0">
+                                <VBox spacing="4.0" prefWidth="140.0">
+                                    <Label text="Sesiones con Profesor"/>
+                                    <Spinner fx:id="spnCursoSesiones" editable="true"/>
+                                </VBox>
+                                <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                    <Label text="Nivel Referencia (MCER)"/>
+                                    <ComboBox fx:id="cmbCursoNivel" maxWidth="Infinity"/>
+                                </VBox>
+                            </HBox>
+                            <VBox spacing="4.0">
+                                <Label text="Objetivos del Estudiante"/>
+                                <TextField fx:id="txtCursoObjetivos" promptText="Ej: Preparación examen TOEFL / DELF"/>
+                            </VBox>
+                        </VBox>
+
+                        <HBox spacing="8.0" alignment="CENTER">
+                            <padding>
+                                <Insets top="6.0"/>
+                            </padding>
+                            <Button text="Registrar Curso" onAction="#registrarCurso" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            <Button text="Limpiar" onAction="#limpiarFormCurso"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+
+                <Separator orientation="VERTICAL"/>
+
+                <!-- TABLA CURSOS -->
+                <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <Label text="Catálogo de Cursos" HBox.hgrow="ALWAYS">
+                            <font><Font name="System Bold" size="14.0"/></font>
+                        </Label>
+                        <Button text="Eliminar Curso" onAction="#eliminarCurso"/>
+                    </HBox>
+
+                    <TableView fx:id="tblCursos" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colCursoCodigo" prefWidth="95.0" text="Código"/>
+                            <TableColumn fx:id="colCursoNombre" prefWidth="180.0" text="Nombre"/>
+                            <TableColumn fx:id="colCursoIdioma" prefWidth="95.0" text="Idioma"/>
+                            <TableColumn fx:id="colCursoTipo" prefWidth="110.0" text="Tipo"/>
+                            <TableColumn fx:id="colCursoDuracion" prefWidth="80.0" text="Meses"/>
+                            <TableColumn fx:id="colCursoValorMensual" prefWidth="115.0" text="Valor/Mes"/>
+                            <TableColumn fx:id="colCursoEstado" prefWidth="95.0" text="Estado"/>
+                            <TableColumn fx:id="colCursoBeneficios" prefWidth="200.0" text="Beneficios y Características"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                </VBox>
+            </HBox>
+        </Tab>
+
+        <!-- ========================================================= -->
+        <!-- PESTAÑA 5: SERVICIOS ADICIONALES -->
+        <!-- ========================================================= -->
+        <Tab text="Servicios Adicionales">
+            <HBox spacing="14.0">
+                <padding>
+                    <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+                </padding>
+
+                <!-- FORMULARIO SERVICIO -->
+                <VBox spacing="10.0" prefWidth="380.0" minWidth="330.0">
+                    <Label text="Servicios Adicionales">
+                        <font><Font name="System Bold" size="14.0"/></font>
+                    </Label>
+                    <Label text="Simulacros de examen, tutorías de refuerzo, material impreso o talleres de conversación." wrapText="true"/>
+
+                    <VBox spacing="4.0">
+                        <Label text="Código *"/>
+                        <TextField fx:id="txtServCodigo" promptText="Ej: SRV-05"/>
+                    </VBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Nombre del Servicio *"/>
+                        <TextField fx:id="txtServNombre" promptText="Nombre del servicio"/>
+                    </VBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Descripción"/>
+                        <TextField fx:id="txtServDescripcion" promptText="Detalles del servicio adicional"/>
+                    </VBox>
+
+                    <HBox spacing="10.0">
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <Label text="Precio ($) *"/>
+                            <TextField fx:id="txtServPrecio" promptText="Ej: 50000"/>
+                        </VBox>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <Label text="Disponibilidad *"/>
+                            <ComboBox fx:id="cmbServDisponibilidad" maxWidth="Infinity"/>
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="8.0" alignment="CENTER">
+                        <padding>
+                            <Insets top="8.0"/>
+                        </padding>
+                        <Button text="Registrar" onAction="#registrarServicio" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Actualizar" onAction="#actualizarServicio" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Limpiar" onAction="#limpiarFormServicio"/>
+                    </HBox>
+                </VBox>
+
+                <Separator orientation="VERTICAL"/>
+
+                <!-- TABLA SERVICIOS -->
+                <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <Label text="Catálogo de Servicios Adicionales" HBox.hgrow="ALWAYS">
+                            <font><Font name="System Bold" size="14.0"/></font>
+                        </Label>
+                        <Button text="Eliminar Servicio" onAction="#eliminarServicio"/>
+                    </HBox>
+
+                    <TableView fx:id="tblServicios" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colServCodigo" prefWidth="95.0" text="Código"/>
+                            <TableColumn fx:id="colServNombre" prefWidth="200.0" text="Nombre"/>
+                            <TableColumn fx:id="colServDescripcion" prefWidth="250.0" text="Descripción"/>
+                            <TableColumn fx:id="colServPrecio" prefWidth="110.0" text="Precio"/>
+                            <TableColumn fx:id="colServDisponibilidad" prefWidth="120.0" text="Disponibilidad"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                </VBox>
+            </HBox>
+        </Tab>
+
+        <!-- ========================================================= -->
+        <!-- PESTAÑA 6: MATRÍCULAS -->
+        <!-- ========================================================= -->
+        <Tab text="Matrículas &amp; Pagos">
+            <HBox spacing="14.0">
+                <padding>
+                    <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+                </padding>
+
+                <!-- FORMULARIO DE MATRÍCULA -->
+                <ScrollPane fitToWidth="true" prefWidth="430.0" minWidth="360.0">
+                    <VBox spacing="10.0">
+                        <Label text="Nueva Matrícula">
+                            <font><Font name="System Bold" size="14.0"/></font>
+                        </Label>
+                        <Label text="El valor depende del curso, duración, tarifa de sesiones del profesor, servicios y posibles descuentos." wrapText="true"/>
+
+                        <HBox spacing="10.0">
+                            <VBox spacing="4.0" prefWidth="140.0">
+                                <Label text="Código Matrícula *"/>
+                                <TextField fx:id="txtMatCodigo"/>
+                            </VBox>
+                            <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                <Label text="Fecha *"/>
+                                <DatePicker fx:id="dpMatFecha" maxWidth="Infinity"/>
+                            </VBox>
+                        </HBox>
+
+                        <VBox spacing="4.0">
+                            <Label text="Estudiante *"/>
+                            <ComboBox fx:id="cmbMatEstudiante" promptText="Seleccione estudiante" maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="4.0">
+                            <Label text="Curso a Matricular *"/>
+                            <ComboBox fx:id="cmbMatCurso" promptText="Seleccione curso" maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="4.0">
+                            <Label text="Profesor Responsable (Personalizado / Asignado)"/>
+                            <ComboBox fx:id="cmbMatProfesor" promptText="Seleccione profesor" maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="4.0">
+                            <Label text="Servicios Adicionales (Ctrl + Clic para varios)"/>
+                            <ListView fx:id="lvMatServicios" prefHeight="105.0"/>
+                        </VBox>
+
+                        <VBox spacing="4.0">
+                            <Label text="Descuento Otorgado por la Academia (%)"/>
+                            <TextField fx:id="txtMatDescuento" promptText="0" text="0"/>
+                        </VBox>
+
+                        <!-- LIQUIDACIÓN EN VIVO -->
+                        <VBox spacing="6.0">
+                            <Label text="Liquidación de Matrícula:">
+                                <font><Font name="System Bold" size="12.0"/></font>
+                            </Label>
+                            <GridPane hgap="8.0" vgap="4.0">
+                                <Label text="Costo Base Curso:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <Label fx:id="lblMatCostoCurso" text="\$0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Servicios Adicionales:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <Label fx:id="lblMatCostoServicios" text="\$0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Descuento Aplicado:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <Label fx:id="lblMatMontoDescuento" text="\$0 (0%)" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="VALOR TOTAL:" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                    <font><Font name="System Bold" size="12.0"/></font>
+                                </Label>
+                                <Label fx:id="lblMatValorTotal" text="\$0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <font><Font name="System Bold" size="14.0"/></font>
+                                </Label>
+                            </GridPane>
+                        </VBox>
+
+                        <HBox spacing="8.0" alignment="CENTER">
+                            <Button text="Registrar Matrícula" onAction="#registrarMatricula" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            <Button text="Limpiar" onAction="#limpiarFormMatricula"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+
+                <Separator orientation="VERTICAL"/>
+
+                <!-- TABLA DE MATRÍCULAS -->
+                <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <Label text="Registro General de Matrículas" HBox.hgrow="ALWAYS">
+                            <font><Font name="System Bold" size="14.0"/></font>
+                        </Label>
+                        <Button text="Registrar Pago" onAction="#registrarPagoMatricula"/>
+                        <Button text="Ver Detalle" onAction="#verDetalleMatricula"/>
+                        <Button text="Eliminar" onAction="#eliminarMatricula"/>
+                    </HBox>
+
+                    <TableView fx:id="tblMatriculas" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colMatCodigo" prefWidth="100.0" text="Código"/>
+                            <TableColumn fx:id="colMatFecha" prefWidth="90.0" text="Fecha"/>
+                            <TableColumn fx:id="colMatEstudiante" prefWidth="180.0" text="Estudiante"/>
+                            <TableColumn fx:id="colMatCurso" prefWidth="170.0" text="Curso"/>
+                            <TableColumn fx:id="colMatProfesor" prefWidth="120.0" text="Profesor"/>
+                            <TableColumn fx:id="colMatServicios" prefWidth="110.0" text="Servicios"/>
+                            <TableColumn fx:id="colMatDescuento" prefWidth="70.0" text="Desc."/>
+                            <TableColumn fx:id="colMatTotal" prefWidth="105.0" text="Total"/>
+                            <TableColumn fx:id="colMatPagado" prefWidth="100.0" text="Pagado"/>
+                            <TableColumn fx:id="colMatSaldo" prefWidth="95.0" text="Saldo"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                </VBox>
+            </HBox>
+        </Tab>
+
+        <!-- ========================================================= -->
+        <!-- PESTAÑA 7: CONSULTAS Y REPORTES DEL ENUNCIADO -->
+        <!-- ========================================================= -->
+        <Tab text="Consultas &amp; Reportes">
+            <VBox spacing="14.0">
+                <padding>
+                    <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+                </padding>
+
+                <!-- CONSULTA 1: BUSCAR ESTUDIANTE MEDIANTE DOCUMENTO -->
+                <VBox spacing="10.0">
+                    <Label text="Consulta 1: Buscar Estudiante por Documento de Identidad">
+                        <font><Font name="System Bold" size="14.0"/></font>
+                    </Label>
+                    <Label text="Permite buscar un estudiante mediante su documento de identidad y consultar su historial académico y matrículas."/>
+
+                    <HBox spacing="12.0" alignment="CENTER_LEFT">
+                        <Label text="Documento:">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                        </Label>
+                        <TextField fx:id="txtConsultaDocEstudiante" promptText="Ingrese número de documento..." prefWidth="250.0"/>
+                        <Button text="Buscar Estudiante" onAction="#ejecutarConsultaEstudiante"/>
+                    </HBox>
+
+                    <!-- FICHA DEL ESTUDIANTE Y SUS MATRÍCULAS -->
+                    <HBox spacing="14.0">
+                        <!-- Ficha de Datos -->
+                        <VBox spacing="8.0" prefWidth="320.0" minWidth="280.0">
+                            <Label text="Ficha del Estudiante:">
+                                <font><Font name="System Bold" size="12.0"/></font>
+                            </Label>
+                            <GridPane hgap="8.0" vgap="4.0">
+                                <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <Label fx:id="lblConsEstNombre" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Documento:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <Label fx:id="lblConsEstDocumento" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Edad:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <Label fx:id="lblConsEstEdad" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <Label fx:id="lblConsEstTelefono" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                <Label text="Correo:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                <Label fx:id="lblConsEstCorreo" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                                <Label text="Fecha Registro:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                                <Label fx:id="lblConsEstFechaReg" text="-" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                                <Label text="Cursos Matriculados:" GridPane.columnIndex="0" GridPane.rowIndex="6">
+                                    <font><Font name="System Bold" size="12.0"/></font>
+                                </Label>
+                                <Label fx:id="lblConsEstTotalMatriculas" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                            </GridPane>
+                        </VBox>
+
+                        <Separator orientation="VERTICAL"/>
+
+                        <!-- Tabla de Matrículas del Estudiante -->
+                        <TableView fx:id="tblConsultaEstMatriculas" HBox.hgrow="ALWAYS" prefHeight="160.0">
+                            <columns>
+                                <TableColumn fx:id="colConsMatCodigo" prefWidth="110.0" text="Código Matrícula"/>
+                                <TableColumn fx:id="colConsMatFecha" prefWidth="100.0" text="Fecha"/>
+                                <TableColumn fx:id="colConsMatCurso" prefWidth="200.0" text="Curso Adquirido"/>
+                                <TableColumn fx:id="colConsMatProfesor" prefWidth="140.0" text="Profesor Responsable"/>
+                                <TableColumn fx:id="colConsMatTotal" prefWidth="120.0" text="Valor Total"/>
+                                <TableColumn fx:id="colConsMatSaldo" prefWidth="110.0" text="Saldo Pendiente"/>
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
+                        </TableView>
+                    </HBox>
+                </VBox>
+
+                <Separator/>
+
+                <!-- CONSULTA 2: INGRESOS POR MATRÍCULAS EN UN PERÍODO DETERMINADO -->
+                <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+                    <Label text="Consulta 2: Ingresos Generados por Matrículas en un Período Determinado">
+                        <font><Font name="System Bold" size="14.0"/></font>
+                    </Label>
+                    <Label text="El sistema recorre las matrículas registradas, identifica aquellas realizadas dentro del periodo consultado (fecha inicial y final) y acumula el valor total generado."/>
+
+                    <HBox spacing="12.0" alignment="CENTER_LEFT">
+                        <Label text="Fecha Inicial:">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                        </Label>
+                        <DatePicker fx:id="dpReporteFechaInicio" prefWidth="140.0"/>
+                        <Label text="Fecha Final:">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                        </Label>
+                        <DatePicker fx:id="dpReporteFechaFin" prefWidth="140.0"/>
+                        <Button text="Generar Reporte de Ingresos" onAction="#ejecutarReporteIngresos"/>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <!-- Tarjetas de Total Acumulado -->
+                        <HBox spacing="12.0">
+                            <VBox alignment="CENTER" spacing="2.0">
+                                <Label text="Matrículas en Período"/>
+                                <Label fx:id="lblReporteCantidadMatriculas" text="0">
+                                    <font><Font name="System Bold" size="16.0"/></font>
+                                </Label>
+                            </VBox>
+                            <Separator orientation="VERTICAL"/>
+                            <VBox alignment="CENTER" spacing="2.0">
+                                <Label text="Total Ingresos Generados"/>
+                                <Label fx:id="lblReporteTotalIngresos" text="\$0">
+                                    <font><Font name="System Bold" size="16.0"/></font>
+                                </Label>
+                            </VBox>
+                        </HBox>
+                    </HBox>
+
+                    <!-- TABLA MATRÍCULAS EN EL PERÍODO -->
+                    <TableView fx:id="tblReporteMatriculas" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colRepCodigo" prefWidth="130.0" text="Código Matrícula"/>
+                            <TableColumn fx:id="colRepFecha" prefWidth="120.0" text="Fecha de Matrícula"/>
+                            <TableColumn fx:id="colRepEstudiante" prefWidth="250.0" text="Estudiante"/>
+                            <TableColumn fx:id="colRepCurso" prefWidth="260.0" text="Curso"/>
+                            <TableColumn fx:id="colRepTotal" prefWidth="170.0" text="Valor Total Generado"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </Tab>
+
+    </TabPane>
+</VBox>
