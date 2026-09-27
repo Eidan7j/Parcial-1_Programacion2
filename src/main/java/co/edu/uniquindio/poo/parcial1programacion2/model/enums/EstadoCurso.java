@@ -1,0 +1,7 @@
+package co.edu.uniquindio.poo.parcial1programacion2.model.enums;
+
+public enum EstadoCurso {
+
+    ACTIVO, SUSPENDIDO, FINALIZADO
+
+}
